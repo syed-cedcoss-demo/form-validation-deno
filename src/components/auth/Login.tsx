@@ -109,23 +109,27 @@ const Login = () => {
                     />
 
                     <FlexLayout halign="end" spacing="loose">
-                      <Button
-                        thickness="thin"
-                        type="Primary"
-                        disable={
-                          data?.email &&
-                          data?.name &&
-                          data?.password &&
-                          !error?.email &&
-                          !error?.name &&
-                          !error?.password
-                            ? false
-                            : true
-                        }
-                        onClick={() => console.log('first')}
-                      >
-                        Validate
-                      </Button>
+                      <div style={{ paddingTop: '20px' }}>
+                        <Button
+                          thickness="thin"
+                          type="Primary"
+                          disable={
+                            data?.name &&
+                            data?.email &&
+                            data?.name &&
+                            data?.password &&
+                            !error?.name &&
+                            !error?.email &&
+                            !error?.name &&
+                            !error?.password
+                              ? false
+                              : true
+                          }
+                          onClick={() => console.log('first')}
+                        >
+                          Validate
+                        </Button>
+                      </div>
                     </FlexLayout>
                   </form>
                 </FormElement>
