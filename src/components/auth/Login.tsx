@@ -13,33 +13,40 @@ import {
   emailValidation,
   nameValidation,
   singlePasswordValidation,
+  usernameValidation,
 } from '../shared/FormValidations';
 const Login = () => {
-  const [data, setData] = useState({ name: '', email: '', password: '' });
-  const [error, setError] = useState({ name: '', email: '', password: '' });
+  const [data, setData] = useState({ name: '', email: '', password: '', username: '' });
+  const [error, setError] = useState({ name: '', email: '', password: '', username: '' });
 
   const handleChange = (e: string, name: string) => {
     setData({ ...data, [name]: e });
-    errorChecker(name);
+    errorChecker(name, e);
   };
-  const errorChecker = (type: string) => {
+  const errorChecker = (type: string, value?: string) => {
     switch (type) {
       case 'email': {
-        const res = emailValidation(data?.email);
+        const res = emailValidation(value ?? data?.email);
         if (!res.success) setError({ ...error, email: res?.msg });
         else setError({ ...error, email: '' });
         break;
       }
       case 'name': {
-        const res = nameValidation(data?.name);
+        const res = nameValidation(value ?? data?.name);
         if (!res.success) setError({ ...error, name: res?.msg });
         else setError({ ...error, name: '' });
         break;
       }
       case 'password': {
-        const res = singlePasswordValidation(data?.password);
+        const res = singlePasswordValidation(value ?? data?.password);
         if (!res.success) setError({ ...error, password: res?.msg });
         else setError({ ...error, password: '' });
+        break;
+      }
+      case 'username': {
+        const res = usernameValidation(value ?? data?.username);
+        if (!res.success) setError({ ...error, username: res?.msg });
+        else setError({ ...error, username: '' });
         break;
       }
     }
@@ -80,6 +87,16 @@ const Login = () => {
                       error={error?.email ? true : false}
                       showHelp={error?.email ?? ''}
                       onblur={() => errorChecker('email')}
+                    />
+                    <TextField
+                      name="Username"
+                      required={true}
+                      placeHolder="Enter email address"
+                      type="text"
+                      onChange={(e) => handleChange(e, 'username')}
+                      error={error?.username ? true : false}
+                      showHelp={error?.username ?? ''}
+                      onblur={() => errorChecker('username')}
                     />
                     <TextField
                       name="Password"

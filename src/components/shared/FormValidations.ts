@@ -122,7 +122,7 @@ export const usernameValidation = (username: string) => {
     };
   } else if (!usernamePattern.test(username)) {
     return {
-      status: false,
+      success: false,
       msg: 'Please ensure that the username must not contain any space or special character. Also, it cannot start with a number',
     };
   } else {
